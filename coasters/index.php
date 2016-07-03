@@ -14,23 +14,26 @@ $conn = new mysqli($servername, $username, $password);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
 $park = $_GET['park'];
 if(!$park) $park = "%";
 
-//$park = "Holiday World";
 // Retrieve Data
-$sql = "select " .
-    "coasters.coasters.name, coasters.coasters.track_type, " .
-    "coasters.coasters.status, coasters.parks.name " .
+$sql =
+    "select " .
+        "coasters.coasters.name, coasters.coasters.track_type, " .
+        "coasters.coasters.status, coasters.parks.name " .
     "from coasters.coasters " .
     "inner join coasters.parks " .
-    "on coasters.parks.id=coasters.coasters.park_id " .
-    "where coasters.parks.name like '" . $park . "';";
+        "on coasters.parks.id=coasters.coasters.park_id " .
+    "where coasters.parks.name like '" . $park . "' " .
+    "order by " .
+        "coasters.parks.name, " .
+        "coasters.coasters.status asc, " .
+        "coasters.coasters.name asc;";
 $result = $conn->query($sql);
 
 // Display Data
-$n = $result->num_rows;
-
 echo "<table><tr>" .
      "<th>Coaster Name</th>" .
      "<th>Track Type</th>" .
