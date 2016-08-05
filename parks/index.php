@@ -1,19 +1,29 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 <?php
+
+echo "<p>Hello, " .
+    ($_SESSION['username'] ? $_SESSION['username'] : "guest") .
+    "!</p>";
+
 $servername = "localhost";
-$username = "public";
+$username = $_SESSION['username'] ? $_SESSION['username'] : "public";
+$password = $_SESSION['password'] ? $_SESSION['password'] : null;
 
-// Create connection
-$conn = new mysqli($servername, $username, null);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
+if ($_SESSION['connection'] != null) {
+    $conn = $_SESSION['connection'];
+} else {
+    $conn = new mysqli($servername, $username, $password, "coasters");
+    if ($conn->connect_error)
+        die("Connection failed: " . $conn->connect_error);
+}
 
 $city = $_GET['city'];
 $region = $_GET['region'];
@@ -24,12 +34,11 @@ if(!$region) $region = "%";
 if(!$country) $country = "%";
 
 // Retrieve Data
-$sql = "select name, city, region, country from coasters.parks " .
-    "where coasters.parks.city like '" . $city . "' " .
-    "and coasters.parks.region like '" . $region . "' " .
-    "and coasters.parks.country like '" . $country . "';";
+$sql = "select name, city, region, country from parks " .
+    "where parks.city like '" . $city . "' " .
+    "and parks.region like '" . $region . "' " .
+    "and parks.country like '" . $country . "';";
 $result = $conn->query($sql);
-$conn->close();
 
 // Display Data
 //$n = $result->num_rows;
@@ -53,5 +62,23 @@ while($row = $result->fetch_array())
          "</tr>";
 echo "</table>";
 ?>
+<br/>
+<table>
+<tr><th>Add a park</th><th></th><th></th><th></th></tr>
+<form action="" method="post">
+<tr>
+<td><input type="text" placeholder="Name"></td>
+<td><input type="text" placeholder="City"></td>
+<td><input type="text" placeholder="Region"></td>
+<td><input type="text" placeholder="Country"></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td><input type="submit" value="Submit"></td>
+</tr>
+</form>
+
 </body>
 </html>

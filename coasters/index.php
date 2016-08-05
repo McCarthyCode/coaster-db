@@ -1,18 +1,30 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 <?php
+
+echo "<p>Hello, " .
+    ($_SESSION['username'] ? $_SESSION['username'] : "guest") .
+    "!</p>";
+
 $servername = "localhost";
-$username = "public";
-$password = null;
+$username = $_SESSION['username'] ? $_SESSION['username'] : "public";
+$password = $_SESSION['password'] ? $_SESSION['password'] : null;
 
-$conn = new mysqli($servername, $username, $password);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if ($_SESSION['connection'] != null) {
+    echo "<p>Already connected.</p>";
+    $conn = $_SESSION['connection'];
+} else {
+    echo "<p>Trying to connect again.</p>";
+    $conn = new mysqli($servername, $username, $password, "coasters");
+    if ($conn->connect_error)
+        die("Connection failed: " . $conn->connect_error);
 }
 
 $park = $_GET['park'];
@@ -21,16 +33,18 @@ if(!$park) $park = "%";
 // Retrieve Data
 $sql =
     "select " .
-        "coasters.coasters.name, coasters.coasters.track_type, " .
-        "coasters.coasters.status, coasters.parks.name " .
-    "from coasters.coasters " .
-    "inner join coasters.parks " .
-        "on coasters.parks.id=coasters.coasters.park_id " .
-    "where coasters.parks.name like '" . $park . "' " .
+        "coasters.name, " .
+        "coasters.track_type, " .
+        "coasters.status, " .
+        "parks.name " .
+    "from coasters " .
+    "inner join parks " .
+        "on parks.id=coasters.park_id " .
+    "where parks.name like '" . $park . "' " .
     "order by " .
-        "coasters.parks.name, " .
-        "coasters.coasters.status asc, " .
-        "coasters.coasters.name asc;";
+        "parks.name, " .
+        "coasters.status asc, " .
+        "coasters.name asc;";
 $result = $conn->query($sql);
 
 // Display Data
@@ -48,7 +62,6 @@ while($row = $result->fetch_array())
          $row[3] . "'>" . $row[3] . "</a></td></tr>";
 echo "</table>";
 
-$conn->close();
 ?>
 </body>
 </html>
