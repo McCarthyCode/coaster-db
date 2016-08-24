@@ -43,7 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if( !strcmp($serverHash, $clientHash) ) {
             session_start();
             $_SESSION['username'] = $_POST['username'];
-            header("Location: home.php");
+            header("Location: " .
+                ($_GET["href"] ? sanitize($_GET["href"]) : "home.php"));
         } else {
             $passwordErr = "Password is invalid.";
         }
@@ -63,7 +64,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </style>
 </head>
 <body>
-<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
+<form action="
+    <?php echo htmlspecialchars($_SERVER['PHP_SELF']) .
+    ($_GET["href"] ? "?href=" . $_GET["href"] : "");?>"
+    method="post">
 <table>
 <tr>
 <td>username:</td>

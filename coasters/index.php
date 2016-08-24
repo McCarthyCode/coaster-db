@@ -10,9 +10,13 @@ require "../settings.php";
 <body>
 <?php
 
-echo "<p>Hello, " .
-    ($_SESSION['username'] ? $_SESSION['username'] : "guest") .
-    "!</p>";
+if ($_SESSION['username'] != null) {
+    echo "<p>Hello, " . $_SESSION['username'] . "!</p>" .
+         "<p><a href='../logout.php'>Logout</a></p>";
+} else {
+    echo "<p>Hello, guest!</p>" .
+         "<p><a href='../login.php?href=coasters'>Login</a></p>";
+}
 
 $conn = new mysqli($servername, $username, $password, "coasters");
 if ($conn->connect_error)
