@@ -1,5 +1,6 @@
 <?php
 session_start();
+require "../settings.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,17 +14,9 @@ echo "<p>Hello, " .
     ($_SESSION['username'] ? $_SESSION['username'] : "guest") .
     "!</p>";
 
-$servername = "localhost";
-$username = $_SESSION['username'] ? $_SESSION['username'] : "public";
-$password = $_SESSION['password'] ? $_SESSION['password'] : null;
-
-if ($_SESSION['connection'] != null) {
-    $conn = $_SESSION['connection'];
-} else {
-    $conn = new mysqli($servername, $username, $password, "coasters");
-    if ($conn->connect_error)
-        die("Connection failed: " . $conn->connect_error);
-}
+$conn = new mysqli($servername, $username, $password, "coasters");
+if ($conn->connect_error)
+    die("Connection failed: " . $conn->connect_error);
 
 $city = $_GET['city'];
 $region = $_GET['region'];
