@@ -10,7 +10,8 @@ require "../settings.php";
 <body>
 <?php
 
-if ($_SESSION['username'] != null) {
+$isLoggedIn = ($_SESSION['username'] == null) ? false : true;
+if ($isLoggedIn) {
     echo "<p>Hello, " . $_SESSION['username'] . "!</p>" .
          "<p><a href='../logout.php'>Logout</a></p>";
 } else {
@@ -43,18 +44,22 @@ $sql =
 $result = $conn->query($sql);
 
 // Display Data
-echo "<table><tr>" .
-     "<th>Coaster Name</th>" .
-     "<th>Track Type</th>" .
-     "<th>Status</th>" .
-     "<th>Park</th>" .
-     "</td>";
+echo
+    "<table><tr>" .
+    ($isLoggedIn ? "<th>Ridden?</th>" : "") .
+    "<th>Coaster Name</th>" .
+    "<th>Track Type</th>" .
+    "<th>Status</th>" .
+    "<th>Park</th>" .
+    "</td>";
 while($row = $result->fetch_array())
-    echo "<tr><td>" . $row[0] .
-         "</td><td>" . $row[1] .
-         "</td><td>" . $row[2] .
-         "</td><td><a href='/coasters/?park=" .
-         $row[3] . "'>" . $row[3] . "</a></td></tr>";
+    echo 
+        ($isLoggedIn ? "<tr><td><input type='checkbox'></td>" : "<tr>") .
+        "<td>" . $row[0] .
+        "</td><td>" . $row[1] .
+        "</td><td>" . $row[2] .
+        "</td><td><a href='/coasters/?park=" .
+        $row[3] . "'>" . $row[3] . "</a></td></tr>";
 echo "</table>";
 
 ?>
