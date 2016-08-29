@@ -9,7 +9,12 @@ require "../settings.php";
 </head>
 <body>
 <?php
+// Connect to database
+$conn = new mysqli($servername, $username, $password, "coasters");
+if ($conn->connect_error)
+    die("Connection failed: " . $conn->connect_error);
 
+// Login/logout
 if ($_SESSION['username'] != null) {
     echo "<p>Hello, " . $_SESSION['username'] . "!</p>" .
          "<p><a href='../logout.php'>Logout</a></p>";
@@ -18,10 +23,43 @@ if ($_SESSION['username'] != null) {
          "<p><a href='../login.php?href=parks'>Login</a></p>";
 }
 
-$conn = new mysqli($servername, $username, $password, "coasters");
-if ($conn->connect_error)
-    die("Connection failed: " . $conn->connect_error);
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['name'];
+    $city = $_POST['city'];
+    $region = $_POST['region'];
+    $country = $_POST['country'];
+    $inputErr = "";
 
+    if(
+        $name == null |
+        $city == null |
+        $region == null |
+        $country == null ) {
+        $inputErr = "Missing criteria.";
+    } else {
+        $sql =
+            "select * from parks where " .
+                "name = '" . $name . "' and " .
+                "city = '" . $city . "' and " .
+                "region = '" . $region . "' and " .
+                "country = '" . $country . "';";
+        if($result = $conn->query($sql)->fetch_array()) {
+            $inputErr = "That park has been added already.";
+        } else {
+            $sql =
+                "insert into parks set " .
+                    "name = '" . $name . "', " .
+                    "city = '" . $city . "', " .
+                    "region = '" . $region . "', " .
+                    "country = '" . $country . "';";
+            $result = $conn->query($sql);
+        }
+    }
+    $_POST = array();
+}
+
+// Display table data
 $city = $_GET['city'];
 $region = $_GET['region'];
 $country = $_GET['country'];
@@ -38,8 +76,6 @@ $sql = "select name, city, region, country from parks " .
 $result = $conn->query($sql);
 
 // Display Data
-//$n = $result->num_rows;
-
 echo "<table><tr>" .
      "<th>Park Name</th>" .
      "<th>City</th>" .
@@ -57,17 +93,18 @@ while($row = $result->fetch_array())
          "<td><a href='/parks/?country=" .
             $row[3] . "'>" . $row[3] . "</a></td>" .
          "</tr>";
-echo "</table>";
+echo "</table><p><span class='error'>" . $inputErr . "</span></td></p>";
 ?>
-<br/>
 <table>
 <tr><th>Add a park</th><th></th><th></th><th></th></tr>
-<form action="" method="post">
+<form action="
+    <?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>"
+    method="post">
 <tr>
-<td><input type="text" placeholder="Name"></td>
-<td><input type="text" placeholder="City"></td>
-<td><input type="text" placeholder="Region"></td>
-<td><input type="text" placeholder="Country"></td>
+<td><input type="text" name="name" placeholder="Name"></td>
+<td><input type="text" name="city" placeholder="City"></td>
+<td><input type="text" name="region" placeholder="Region"></td>
+<td><input type="text" name="country" placeholder="Country"></td>
 </tr>
 <tr>
 <td></td>
@@ -76,6 +113,5 @@ echo "</table>";
 <td><input type="submit" value="Submit"></td>
 </tr>
 </form>
-
 </body>
 </html>

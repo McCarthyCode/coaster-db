@@ -14,3 +14,7 @@ th {
     background-color: #4CAF50;
     color: white;
 }
+
+.error {
+    color: #FF0000;
+}
