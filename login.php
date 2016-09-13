@@ -57,6 +57,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <style>
 .error {
     color: #FF0000;
@@ -64,25 +67,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </style>
 </head>
 <body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+<div class="container">
+<div class="collapse navbar-collapse">
+
+<ul class="nav navbar-nav">
+<li><a>Parks</a></li>
+<li><a>Coasters</a></li>
+</ul>
+
+<div class="navbar-right">
+<button class="btn btn-default navbar-btn">Sign In</button>
+<button class="btn btn-default navbar-btn">Register</button>
+</div>
+
+</div>
+</div>
+</nav>
+
+<div class="container">
+<div class="page-header">
 <form action="
     <?php echo htmlspecialchars($_SERVER['PHP_SELF']) .
     ($_GET["href"] ? "?href=" . $_GET["href"] : "");?>"
     method="post">
-<table>
-<tr>
-<td>username:</td>
-<td><input type="text" name="username" value="<?php echo $username;?>"><span class="error"> <?php echo $usernameErr;?></span></td>
-</tr>
-<tr>
-<td>password:</td>
-<td><input type="password" name="password"><span class="error"> <?php echo $passwordErr;?></td>
-</tr>
-<tr>
-<td></td>
-<td><input type="submit"></td>
-</tr>
-</table>
+<input type="text" name="username" placeholder="username" value="<?php echo $username;?>"><span class="error"> <?php echo $usernameErr;?></span>
+<input type="password" name="password" placeholder="password"><span class="error"> <?php echo $passwordErr;?>
+<input type="submit">
 </form>
+</div>
+</div>
+
+<script src="js/bootstrap.min.js"></script>
+
 </body>
 </html>
 
