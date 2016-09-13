@@ -58,8 +58,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="css/style.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/signin.css" rel="stylesheet">
 <style>
 .error {
     color: #FF0000;
@@ -68,36 +69,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top">
-<div class="container">
-<div class="collapse navbar-collapse">
-
-<ul class="nav navbar-nav">
-<li><a>Parks</a></li>
-<li><a>Coasters</a></li>
-</ul>
-
-<div class="navbar-right">
-<button class="btn btn-default navbar-btn">Sign In</button>
-<button class="btn btn-default navbar-btn">Register</button>
-</div>
-
-</div>
-</div>
-</nav>
+<?php
+if( $usernameErr ) { ?>
+<div class="container-fluid">
+<div class="alert alert-danger" role="alert"><?php echo $usernameErr; ?></div>
+</div><?php
+} else if( $passwordErr ) { ?>
+<div class="container-fluid">
+<div class="alert alert-danger" role="alert"><?php echo $passwordErr; ?></div>
+</div><?php
+}
+?>
 
 <div class="container">
-<div class="page-header">
-<form action="
+<form class="form-signin" action="
     <?php echo htmlspecialchars($_SERVER['PHP_SELF']) .
     ($_GET["href"] ? "?href=" . $_GET["href"] : "");?>"
     method="post">
-<input type="text" name="username" placeholder="username" value="<?php echo $username;?>"><span class="error"> <?php echo $usernameErr;?></span>
-<input type="password" name="password" placeholder="password"><span class="error"> <?php echo $passwordErr;?>
-<input type="submit">
+<input type="text" class="form-control" name="username" placeholder="Username" value="<?php echo $username;?>">
+<input type="password" class="form-control" name="password" placeholder="Password">
+<button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
 </form>
-</div>
-</div>
+</div><!-- /.container -->
 
 <script src="js/bootstrap.min.js"></script>
 
