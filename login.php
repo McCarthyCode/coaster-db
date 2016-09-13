@@ -61,23 +61,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/signin.css" rel="stylesheet">
-<style>
-.error {
-    color: #FF0000;
-}
-</style>
 </head>
 <body>
 
 <?php
-if( $usernameErr ) { ?>
+if( $usernameErr || $passwordErr ) { ?>
 <div class="container-fluid">
-<div class="alert alert-danger" role="alert"><?php echo $usernameErr; ?></div>
-</div><?php
-} else if( $passwordErr ) { ?>
-<div class="container-fluid">
-<div class="alert alert-danger" role="alert"><?php echo $passwordErr; ?></div>
-</div><?php
+<div class="alert alert-danger" role="alert">The username or password you have entered is invalid.</div>
+</div>
+<?php
 }
 ?>
 
