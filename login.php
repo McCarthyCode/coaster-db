@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/signin.css" rel="stylesheet">
@@ -78,9 +78,13 @@ if( $usernameErr || $passwordErr ) { ?>
     <?php echo htmlspecialchars($_SERVER['PHP_SELF']) .
     ($_GET["href"] ? "?href=" . $_GET["href"] : "");?>"
     method="post">
+<h2 class="form-signin-heading">Login to Coaster Rider</h2>
 <input type="text" class="form-control" name="username" placeholder="Username" value="<?php echo $username;?>">
 <input type="password" class="form-control" name="password" placeholder="Password">
 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+<div id="copyright">
+Copyright &copy; <?php echo date("Y"); ?> Coaster Rider. All rights reserved.
+</div>
 </form>
 </div><!-- /.container -->
 
