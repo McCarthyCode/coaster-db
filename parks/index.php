@@ -5,6 +5,8 @@ require "../settings.php";
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
@@ -13,15 +15,6 @@ require "../settings.php";
 $conn = new mysqli($servername, $username, $password, "coasters");
 if ($conn->connect_error)
     die("Connection failed: " . $conn->connect_error);
-
-// Login/logout
-if ($_SESSION['username'] != null) {
-    echo "<p>Hello, " . $_SESSION['username'] . "!</p>" .
-         "<p><a href='../logout.php'>Logout</a></p>";
-} else {
-    echo "<p>Hello, guest!</p>" .
-         "<p><a href='../login.php?href=parks'>Login</a></p>";
-}
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -58,7 +51,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $_POST = array();
 }
-
+?>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Coaster Rider</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-left">
+        <li><a href="/home.php">Home</a></li>
+        <li class="active"><a href="/parks">Parks</a></li>
+        <li><a href="/coasters">Coasters</a></li>
+<?php
+if ($_SESSION['username'] == null) {
+?>
+        <li class="visible-xs"><a href="/login.php?href=parks">Login</a></li>
+      </ul>
+      <a class="nav navbar-nav navbar-right hidden-xs" href="/login.php?href=parks"><button class="btn btn-default navbar-btn">Login</button></a>
+<?php
+} else {
+?>
+        <li class="visible-xs"><a href="/logout.php">Logout</a></li>
+      </ul>
+      <a class="nav navbar-nav navbar-right hidden-xs" href="/logout.php"><button class="btn btn-default navbar-btn">Logout</button></a>
+      <ul class="nav navbar-nav navbar-right hidden-xs">
+        <li><p class="navbar-text"><?php
+echo 'Hello, <a class="navbar-link" href="/home.php">' . $_SESSION['username'] . '</a>!';?></p></li>
+      </ul>
+<?php
+}
+?>
+    </div>
+  </div>
+</nav>
+<div class="container">
+<?php
 // Display table data
 $city = $_GET['city'];
 $region = $_GET['region'];
@@ -113,5 +145,10 @@ echo "</table><p><span class='error'>" . $inputErr . "</span></td></p>";
 <td><input type="submit" value="Submit"></td>
 </tr>
 </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
 </body>
 </html>

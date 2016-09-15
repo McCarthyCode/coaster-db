@@ -8,7 +8,7 @@ if(!isset($_SESSION['username'])) {
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
 <style>
 /*
 @media (max-width: 767px)
@@ -31,15 +31,15 @@ display: none;
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-left">
-        <li class="active"><a href="home">Home</a></li>
-        <li><a href="parks">Parks</a></li>
-        <li><a href="coasters">Coasters</a></li>
-        <li class="visible-xs"><a href="logout.php">Logout</a></li>
+        <li class="active"><a href="/home.php">Home</a></li>
+        <li><a href="/parks">Parks</a></li>
+        <li><a href="/coasters">Coasters</a></li>
+        <li class="visible-xs"><a href="/logout.php">Logout</a></li>
       </ul>
-      <a class="nav navbar-nav navbar-right hidden-xs" href="logout.php"><button class="btn btn-default navbar-btn">Logout</button></a>
+      <a class="nav navbar-nav navbar-right hidden-xs" href="/logout.php"><button class="btn btn-default navbar-btn">Logout</button></a>
       <ul class="nav navbar-nav navbar-right hidden-xs">
         <li><p class="navbar-text"><?php
-echo 'Hello, <a class="navbar-link" href="home.php">' . $_SESSION['username'] . '</a>!';?></p></li>
+echo 'Hello, <a class="navbar-link" href="/home.php">' . $_SESSION['username'] . '</a>!';?></p></li>
       </ul>
     </div>
   </div>
