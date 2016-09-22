@@ -13,7 +13,7 @@ require "../settings.php";
 <?php
 $isLoggedIn = ($_SESSION['username'] == null) ? false : true;
 
-$conn = new mysqli($servername, $username, $password, "coasters");
+$conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error)
     die("Connection failed: " . $conn->connect_error);
 

@@ -4,7 +4,7 @@ require "settings.php";
 require "hash.php";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, "coasters");
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
