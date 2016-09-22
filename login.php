@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             session_start();
             $_SESSION['username'] = $_POST['username'];
             header("Location: " .
-                ($_GET["href"] ? sanitize($_GET["href"]) : "home.php"));
+                ($_GET["href"] ? sanitize($_GET["href"]) : "index.php"));
         } else {
             $passwordErr = "Password is invalid.";
         }

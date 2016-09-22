@@ -49,7 +49,7 @@ $result = $conn->query($sql);
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-left">
-        <li><a href="/home.php">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="/parks">Parks</a></li>
         <li class="active"><a href="/coasters">Coasters</a></li>
 <?php
@@ -66,7 +66,7 @@ if (!$isLoggedIn) {
       <a class="nav navbar-nav navbar-right hidden-xs" href="/logout.php"><button class="btn btn-default navbar-btn">Logout</button></a>
       <ul class="nav navbar-nav navbar-right hidden-xs">
         <li><p class="navbar-text"><?php
-echo 'Hello, <a class="navbar-link" href="/home.php">' . $_SESSION['username'] . '</a>!';?></p></li>
+echo 'Hello, <a class="navbar-link" href="/">' . $_SESSION['username'] . '</a>!';?></p></li>
       </ul>
 <?php
 }

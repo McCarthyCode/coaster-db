@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if($conn->query($sql)) {
                 session_start();
                 $_SESSION['username'] = $_POST['username'];
-                header("Location: home.php");
+                header("Location: index.php");
             } else {
                 http_response_code(500);
             }
