@@ -1,8 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['username'])) {
-    header("Location: login.php");
-}
+$isLoggedIn = isset($_SESSION['username']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,10 +27,16 @@ if(!isset($_SESSION['username'])) {
         <li><a href="/coasters">Coasters</a></li>
         <li class="visible-xs"><a href="/logout.php">Logout</a></li>
       </ul>
-      <a class="nav navbar-nav navbar-right hidden-xs" href="/logout.php"><button class="btn btn-default navbar-btn">Logout</button></a>
+<?php
+if( $isLoggedIn ) {
+    ?><a class="nav navbar-nav navbar-right hidden-xs" href="/logout.php"><button class="btn btn-default navbar-btn">Logout</button></a><?php
+} else {
+    ?><a class="nav navbar-nav navbar-right hidden-xs" href="/login.php"><button class="btn btn-default navbar-btn">Login</button></a><?php
+}
+?>
       <ul class="nav navbar-nav navbar-right hidden-xs">
         <li><p class="navbar-text"><?php
-echo 'Hello, <a class="navbar-link" href="/">' . $_SESSION['username'] . '</a>!';?></p></li>
+echo 'Hello, <a class="navbar-link" href="/">' . ($isLoggedIn ? $_SESSION['username'] : 'guest') . '</a>!';?></p></li>
       </ul>
     </div>
   </div>
