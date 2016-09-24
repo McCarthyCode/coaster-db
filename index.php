@@ -7,6 +7,7 @@ $isLoggedIn = isset($_SESSION['username']);
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
 <div>
@@ -25,13 +26,21 @@ $isLoggedIn = isset($_SESSION['username']);
         <li class="active"><a href="/">Home</a></li>
         <li><a href="/parks">Parks</a></li>
         <li><a href="/coasters">Coasters</a></li>
-        <li class="visible-xs"><a href="/logout.php">Logout</a></li>
+<?php
+if( $isLoggedIn ) {
+        ?><li class="visible-xs"><a href="/logout.php">Logout</a></li><?php
+} else {
+        ?><li class="visible-xs"><a href="/login.php">Login</a></li>
+        <li class="visible-xs"><a href="/register.php">Register</a></li><?php
+}
+?>
       </ul>
 <?php
 if( $isLoggedIn ) {
     ?><a class="nav navbar-nav navbar-right hidden-xs" href="/logout.php"><button class="btn btn-default navbar-btn">Logout</button></a><?php
 } else {
-    ?><a class="nav navbar-nav navbar-right hidden-xs" href="/login.php"><button class="btn btn-default navbar-btn">Login</button></a><?php
+    ?><a class="nav navbar-nav navbar-right hidden-xs" href="/register.php"><button class="btn btn-default navbar-btn">Register</button></a>
+    <a class="nav navbar-nav navbar-right hidden-xs" href="/login.php"><button class="btn btn-default navbar-btn">Login</button></a><?php
 }
 ?>
       <ul class="nav navbar-nav navbar-right hidden-xs">

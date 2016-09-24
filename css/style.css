@@ -23,3 +23,8 @@ th {
 .error {
     color: #FF0000;
 }
+
+button.navbar-btn {
+    margin-left: 1px;
+}
+
