@@ -84,34 +84,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-.error {
-    color: #FF0000;
-}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/signin.css" rel="stylesheet">
 </head>
 <body>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-<table>
-  <tr>
-    <td>username: </td>
-    <td><input type="text" name="username" value="<?php echo $username;?>"><span class="error"> <?php echo $usernameErr;?></span></td>
-  </tr>
-  <tr>
-    <td>password: </td>
-    <td><input type="password" name="password"><span class="error"> <?php echo $passwordErr;?></td>
-  </tr>
-  <tr>
-    <td>confirm password: </td>
-    <td><input type="password" name="confirmation"></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td><input type="submit"></td>
-  </tr>
-</table>
+
+<?php
+if( $usernameErr || $passwordErr ) { ?>
+<div class="container-fluid">
+<div class="alert alert-danger" role="alert">
+<?php
+echo ($usernameErr) ? $usernameErr : $passwordErr;
+?>
+</div>
+</div>
+<?php
+}
+?>
+
+<div class="container">
+<form class="form-signin" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+<h2 class="form-signin-heading">Create an Account</h2>
+<input id="username" type="text" class="form-control" name="username" placeholder="Username" value="<?php echo $username;?>">
+<input id="password" type="password" class="form-control" name="password" placeholder="Password">
+<input id="confirm" type="password" class="form-control" name="confirmation" placeholder="Confirm Password">
+<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/login.php">Login</a></li>
+<li><a href="/register.php">Register</a></li>
+</ul>
+<div id="copyright">
+Copyright &copy; <?php echo date("Y"); ?> Coaster Rider. All rights reserved.
+</div>
 </form>
-</p>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
 </body>
 </html>
 

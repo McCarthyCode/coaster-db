@@ -78,16 +78,22 @@ if( $usernameErr || $passwordErr ) { ?>
     <?php echo htmlspecialchars($_SERVER['PHP_SELF']) .
     ($_GET["href"] ? "?href=" . $_GET["href"] : "");?>"
     method="post">
-<h2 class="form-signin-heading">Login to Coaster Rider</h2>
+<h2 class="form-signin-heading">Login to <a href="/">Coaster Rider</a></h2>
 <input type="text" class="form-control" name="username" placeholder="Username" value="<?php echo $username;?>">
 <input type="password" class="form-control" name="password" placeholder="Password">
 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/login.php">Login</a></li>
+<li><a href="/register.php">Register</a></li>
+</ul>
 <div id="copyright">
 Copyright &copy; <?php echo date("Y"); ?> Coaster Rider. All rights reserved.
 </div>
 </form>
 </div><!-- /.container -->
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 
 </body>

@@ -1,62 +1,29 @@
-/*
-html{
-  background: url(/images/bg.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-margin: 0;
-}
-*/
 body {
   padding: 0;
   background-color: #eee;
   height: 100%;
 }
-/*
-h2 {
-  text-shadow: 0px 0px 6px black;
-  color: white;
+h2 > a {
+  color: black;
 }
-*/
-#copyright {
-  /*text-shadow: 0px 0px 3px black;*/
-font-size: 12px;  
-color: #aaa;
-  text-align: center;
-  padding-top: 10px;
-  /*
-  position: absolute;
-  bottom: 0;
-  width: 100%;*/
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
+h2 > a:hover {
+  color: #337ab7;
+  text-decoration: none;
 }
-
 .alert {
     margin-top: 10px;
 }
-
 .container {
   height: 100%;
   position: relative;
 }
-
 .container-fluid {
   width: 100%;
   position: absolute;
 }
-
 .form-signin {
   text-align: center;
-  /*max-width: 380px;
-  min-width: 330px;
-*/  
-width: 330px;
+  width: 330px;
   padding: 10px;
   margin: 0 auto;
   position: absolute;
@@ -75,8 +42,8 @@ width: 330px;
   position: relative;
   height: auto;
   -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   padding: 10px;
   font-size: 16px;
 }
@@ -92,4 +59,40 @@ width: 330px;
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+#username {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+#password {
+  margin: -1px 0;
+  border-radius: 0;
+}
+#confirm {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+ul {
+  margin: 10px 0;
+  padding: 0;
+}
+ul li {
+  display: inline;
+}
+li~li {
+  border-left: 1px solid #aaa;
+  padding-left: 4px;
+}
+#copyright {
+  font-size: 12px;  
+  color: #aaa;
+  text-align: center;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
