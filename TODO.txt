@@ -1,0 +1,14 @@
+Add content to home page
+Create dynamic park/coaster info page
+Limit "add a park" feature to verified users
+Email verification
+Prompt for email at registration
+Forgot password system (timestamps, smtp)
+Footer (ToS, credits, license, repo, etc.)
+Image upload system
+Counting system
+Statistics page
+Blog?
+Milestone sign generator
+Compare coasters w/ user
+Ranking system (by coaster type, region, etc.)
